@@ -6,12 +6,12 @@ module.exports = {
 
   // Simple reply and editReply utility methods
   reply: async function(interaction, content, ReplyType, ephemeral = false) {
-    const reply = this._createReply(interaction, content, ReplyType, ephemeral);
+    const reply = this._createReply.apply(this, arguments);
     await interaction.reply(reply);
   },
 
   editReply: async function(interaction, content, ReplyType, ephemeral = false) {
-    const reply = this._createReply(interaction, content, ReplyType, ephemeral);
+    const reply = this._createReply.apply(this, arguments);
     await interaction.editReply(reply);
   },
 
