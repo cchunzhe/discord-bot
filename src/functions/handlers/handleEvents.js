@@ -16,6 +16,12 @@ module.exports = (client) => {
           else client.on(event.name, (...args) => event.execute(...args, client));
         }
         break;
+      case 'distube':
+        for (const file of eventFiles) {
+          const event = require(`../../events/${folder}/${file}`);
+          client.distube.on(event.name, (...args) => event.execute(...args, client));
+        }
+        break;
       default:
         break;
       }
