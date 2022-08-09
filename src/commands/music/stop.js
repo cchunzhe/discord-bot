@@ -1,5 +1,4 @@
 const Discord = require('discord.js');
-const { joinVoiceChannel, VoiceConnectionStatus, entersState, getVoiceConnection } = require('@discordjs/voice');
 const InteractionUtil = require('../../util/InteractionUtil.js');
 
 module.exports = {
@@ -10,17 +9,6 @@ module.exports = {
   async execute(interaction, client) {
     const user = interaction.user || null;
     const member = interaction.member || null;
-    const connection = getVoiceConnection(interaction.guild.id);
-
-    // prevent 'Cannot read properties of undefined' error
-    // if undefined, means bot is not in a channel
-    try {
-      typeof connection.joinConfig;
-    } catch (error) {
-      const notInChannelMessage = '😒 I am not in a channel';
-      InteractionUtil.reply(interaction, notInChannelMessage, InteractionUtil.ReplyType.STRING);
-      return;
-    }
 
     if (!user || !member) return new Error('user or member variable is unavailable!');
 
@@ -28,18 +16,27 @@ module.exports = {
     if (!user || user === client.user) return;
 
     // check if member is in the same voice channel
-    if (!member.voice.channelId || member.voice.channelId !== connection.joinConfig.channelId) {
+    if (!member.voice.channelId) {
       const sameChannelMessage = '🙁 You must be in the same voice channel to stop music!';
       InteractionUtil.reply(interaction, sameChannelMessage, InteractionUtil.ReplyType.STRING);
       return;
     }
 
-    console.log('member.voice.channelId: ' + member.voice.channelId);
-    console.log('interaction.guiildId: ' + interaction.guild.id);
+    const distube = client.distube;
 
-    connection.destroy();
+    try {
+      distube.stop(interaction);
+    } catch (error) {
+      if (error.errorCode === 'NO_QUEUE') {
+        const notPlayingMusic = '😒 I am not playing music';
+        InteractionUtil.reply(interaction, notPlayingMusic, InteractionUtil.ReplyType.STRING);
+        return;
+      } else {
+        throw error;
+      }
+    }
 
-    const stopMessage = 'Music stopped and disconnected from voice';
+    const stopMessage = 'Music stopped';
     const embed = new Discord.EmbedBuilder()
       .setTitle(stopMessage)
       .setColor(0x696969)
