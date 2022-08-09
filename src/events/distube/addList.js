@@ -6,6 +6,7 @@ module.exports = {
   name: 'addList',
   async execute(queue, playlist, client) {
     const interaction = playlist.metadata.interaction;
+
     let title = '▶ Now playing';
     let description = `[${playlist.name}](${playlist.url})`;
 
@@ -28,6 +29,6 @@ module.exports = {
           inline: false,
         },
       ]);
-    InteractionUtil.reply(interaction, embed, InteractionUtil.ReplyType.EMBED);
+    InteractionUtil.editReply(interaction, embed, InteractionUtil.ReplyType.EMBED);
   },
 };

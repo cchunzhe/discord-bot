@@ -12,6 +12,9 @@ module.exports = {
         .setRequired(true)),
 
   async execute(interaction, client) {
+    // Immediately defer reply to prevent timeouts
+    await interaction.deferReply();
+
     const user = interaction.user || null;
     const member = interaction.member || null;
 

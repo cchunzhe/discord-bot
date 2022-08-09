@@ -28,6 +28,6 @@ module.exports = {
           inline: false,
         },
       ]);
-    InteractionUtil.reply(interaction, embed, InteractionUtil.ReplyType.EMBED);
+    InteractionUtil.editReply(interaction, embed, InteractionUtil.ReplyType.EMBED);
   },
 };
