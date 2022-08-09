@@ -1,5 +1,6 @@
 const Discord = require('discord.js');
 const InteractionUtil = require('../../util/InteractionUtil.js');
+const Constants = require('../../util/Constants.js');
 
 module.exports = {
   data: new Discord.SlashCommandBuilder()
@@ -17,8 +18,7 @@ module.exports = {
 
     // check if member is in the same voice channel
     if (!member.voice.channelId) {
-      const sameChannelMessage = '🙁 You must be in the same voice channel to stop music!';
-      InteractionUtil.reply(interaction, sameChannelMessage, InteractionUtil.ReplyType.STRING);
+      InteractionUtil.reply(interaction, Constants.commands.music.REQUIRE_SAME_VOICE_CHANNEL, InteractionUtil.ReplyType.STRING);
       return;
     }
 
@@ -28,18 +28,16 @@ module.exports = {
       distube.stop(interaction);
     } catch (error) {
       if (error.errorCode === 'NO_QUEUE') {
-        const notPlayingMusic = '😒 I am not playing music';
-        InteractionUtil.reply(interaction, notPlayingMusic, InteractionUtil.ReplyType.STRING);
+        InteractionUtil.reply(interaction, Constants.commands.music.QUEUE_EMPTY, InteractionUtil.ReplyType.STRING);
         return;
       } else {
         throw error;
       }
     }
 
-    const stopMessage = 'Music stopped';
     const embed = new Discord.EmbedBuilder()
-      .setTitle(stopMessage)
-      .setColor(0x696969)
+      .setTitle(Constants.commands.music.SONG_STOPPED)
+      .setColor(Constants.misc.embed.COLOR_ACCENT)
       .setTimestamp(Date.now());
 
     InteractionUtil.reply(interaction, embed, InteractionUtil.ReplyType.EMBED);

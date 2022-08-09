@@ -1,5 +1,6 @@
 const Discord = require('discord.js');
 const InteractionUtil = require('../../util/InteractionUtil.js');
+const Constants = require('../../util/Constants.js');
 
 module.exports = {
   data: new Discord.SlashCommandBuilder()
@@ -20,8 +21,7 @@ module.exports = {
     if (!user || user === client.user) return;
 
     if (!member.voice.channelId) {
-      const requireChannelMessage = '🙁 You must be in a voice channel to play music!';
-      InteractionUtil.reply(interaction, requireChannelMessage, true);
+      InteractionUtil.reply(interaction, Constants.commands.music.REQUIRE_VOICE_CHANNEL, true);
       return;
     }
 

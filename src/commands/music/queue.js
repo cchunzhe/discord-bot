@@ -1,5 +1,6 @@
 const Discord = require('discord.js');
 const InteractionUtil = require('../../util/InteractionUtil.js');
+const Constants = require('../../util/Constants.js');
 
 module.exports = {
   data: new Discord.SlashCommandBuilder()
@@ -16,8 +17,7 @@ module.exports = {
     if (!user || user === client.user) return;
 
     if (!member.voice.channelId) {
-      const requireChannelMessage = ':slight_frown: You must be in a voice channel to view queue!';
-      InteractionUtil.reply(interaction, requireChannelMessage, true);
+      InteractionUtil.reply(interaction, Constants.commands.music.REQUIRE_VOICE_CHANNEL, true);
       return;
     }
 
@@ -40,15 +40,15 @@ module.exports = {
           });
 
       const embed = new Discord.EmbedBuilder()
-        .setTitle('⏯ Up next')
-        .setDescription('Showing next 10 in queue')
-        .setColor(0x696969)
+        .setTitle(Constants.commands.music.QUEUE_TITLE)
+        .setDescription(Constants.commands.music.QUEUE_DESCRIPTION)
+        .setColor(Constants.misc.embed.COLOR_ACCENT)
         .setTimestamp(Date.now())
         .addFields(fields);
 
       InteractionUtil.reply(interaction, embed, InteractionUtil.ReplyType.EMBED);
     } else {
-      InteractionUtil.reply(interaction, '😞 No songs in queue', InteractionUtil.ReplyType.STRING, true);
+      InteractionUtil.reply(interaction, Constants.commands.music.QUEUE_EMPTY, InteractionUtil.ReplyType.STRING, true);
     }
   },
 };

@@ -1,5 +1,6 @@
 const Discord = require('discord.js');
 const InteractionUtil = require('../../util/InteractionUtil.js');
+const Constants = require('../../util/Constants.js');
 
 module.exports = {
   name: 'addList',
@@ -10,14 +11,14 @@ module.exports = {
 
     // If queue length > playlist length, means there are previously queued songs
     if (queue.songs.length > playlist.songs.length) {
-      title = '✅ Queued playlist';
+      title = Constants.commands.music.PLAYLIST_QUEUED;
       description = `Queued ${playlist.songs.length} items`;
     }
 
     const embed = new Discord.EmbedBuilder()
       .setTitle(title)
       .setDescription(description)
-      .setColor(0x696969)
+      .setColor(Constants.misc.embed.COLOR_ACCENT)
       .setThumbnail(playlist.thumbnail)
       .setTimestamp(Date.now())
       .addFields([

@@ -1,25 +1,27 @@
 const Discord = require('discord.js');
 const InteractionUtil = require('../../util/InteractionUtil.js');
+const Constants = require('../../util/Constants.js');
 
 module.exports = {
   name: 'addSong',
   async execute(queue, song, client) {
     const interaction = song.metadata.interaction;
-    let title = '✅ Queued song';
-    const description = `[${song.name}](${song.url})`;
 
     // If queued song is first song
-    if (queue.songs.length === 1) {
-      title = '▶ Now playing';
-    }
+    const title = queue.songs.length === 1 ?
+      Constants.commands.music.SONG_NOW_PLAYING : Constants.commands.music.SONG_QUEUED;
 
     const embed = new Discord.EmbedBuilder()
       .setTitle(title)
-      .setDescription(description)
-      .setColor(0x696969)
+      .setColor(Constants.misc.embed.COLOR_ACCENT)
       .setThumbnail(song.thumbnail)
       .setTimestamp(Date.now())
       .addFields([
+        {
+          name: 'Title',
+          value: `[${song.name}](${song.url})`,
+          inline: false,
+        },
         {
           name: 'Duration',
           value: `${song.formattedDuration}`,

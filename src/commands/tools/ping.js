@@ -1,5 +1,6 @@
 const Discord = require('discord.js');
 const InteractionUtil = require('../../util/InteractionUtil.js');
+const Constants = require('../../util/Constants.js');
 
 module.exports = {
   data: new Discord.SlashCommandBuilder()
@@ -17,7 +18,7 @@ module.exports = {
 
     const embed = new Discord.EmbedBuilder()
       .setTitle('Latency')
-      .setColor(0x696969)
+      .setColor(Constants.misc.embed.COLOR_ACCENT)
       .setTimestamp(Date.now())
       .addFields([
         {
