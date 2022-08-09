@@ -20,7 +20,7 @@ client.distube = new DisTube.DisTube(client, {
   leaveOnStop: true,
   savePreviousSongs: true,
   searchSongs: 5,
-  emptyCooldown: 120,
+  emptyCooldown: 60,
   nsfw: true,
 });
 
