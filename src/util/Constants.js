@@ -3,7 +3,7 @@ module.exports = {
     music: {
       PLAYLIST_QUEUED: '✅  Queued playlist',
 
-      QUEUE_DESCRIPTION: 'Showing next 10 in queue',
+      QUEUE_DESCRIPTION: 'Showing next 10 items in queue',
       QUEUE_EMPTY: '😞 No songs in queue',
       QUEUE_TITLE: '↪  Up next',
 

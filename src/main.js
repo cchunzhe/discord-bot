@@ -15,6 +15,7 @@ const client = new Discord.Client({
 
 // Create new DisTube instance
 client.distube = new DisTube.DisTube(client, {
+  emitNewSongOnly: true,
   leaveOnEmpty: true,
   leaveOnFinish: false,
   leaveOnStop: true,

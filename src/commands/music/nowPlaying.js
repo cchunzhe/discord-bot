@@ -5,7 +5,7 @@ const Constants = require('../../util/Constants.js');
 module.exports = {
   data: new Discord.SlashCommandBuilder()
     .setName('nowplaying')
-    .setDescription('Show current song'),
+    .setDescription('Current item in queue'),
 
   async execute(interaction, client) {
     const user = interaction.user || null;
