@@ -8,8 +8,8 @@ module.exports = {
     .setDescription('Plays previous item in queue'),
 
   async execute(interaction, client) {
-    const user = interaction.user || null;
-    const member = interaction.member || null;
+    const user = interaction.user ?? null;
+    const member = interaction.member ?? null;
 
     if (!user || !member) return new Error('user or member variable is unavailable!');
 
@@ -22,26 +22,10 @@ module.exports = {
     }
 
     const distube = client.distube;
-    const embed = new Discord.EmbedBuilder();
+    let embed = null;
 
     distube.previous(interaction).then((song) => {
-      embed
-        .setTitle(Constants.commands.music.SONG_NOW_PLAYING)
-        .setColor(Constants.misc.embed.COLOR_ACCENT)
-        .setThumbnail(song.thumbnail)
-        .setTimestamp(Date.now())
-        .addFields([
-          {
-            name: 'Title',
-            value: `[${song.name}](${song.url})`,
-            inline: false,
-          },
-          {
-            name: 'Duration',
-            value: `${song.formattedDuration}`,
-            inline: false,
-          },
-        ]);
+      embed = Constants.misc.embed.nowPlayingEmbed(song);
       InteractionUtil.reply(interaction, embed, InteractionUtil.ReplyType.EMBED);
     }).catch((err) => {
       console.log('Something went wrong in going to previous song...');

@@ -22,25 +22,10 @@ module.exports = {
     }
 
     const distube = client.distube;
-    const embed = new Discord.EmbedBuilder();
+    let embed = null;
 
     distube.skip(interaction).then((song) => {
-      embed
-        .setTitle(Constants.commands.music.SONG_NOW_PLAYING)
-        .setColor(Constants.misc.embed.COLOR_ACCENT)
-        .setThumbnail(song.thumbnail)
-        .addFields([
-          {
-            name: 'Title',
-            value: `[${song.name}](${song.url})`,
-            inline: false,
-          },
-          {
-            name: 'Duration',
-            value: `${song.formattedDuration}`,
-            inline: false,
-          },
-        ]);
+      embed = Constants.misc.embed.nowPlayingEmbed(song);
       InteractionUtil.reply(interaction, embed, InteractionUtil.ReplyType.EMBED);
     }).catch((err) => {
       console.log('Something went wrong in going to next song...');
