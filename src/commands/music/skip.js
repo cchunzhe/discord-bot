@@ -5,7 +5,7 @@ const PlaybackUtil = require('../../util/PlaybackUtil.js');
 module.exports = {
   data: new Discord.SlashCommandBuilder()
     .setName('skip')
-    .setDescription('Skip number of songs')
+    .setDescription('Skip items in queue')
     .addIntegerOption(option =>
       option.setName('num')
         .setDescription('Number in queue to skip to')

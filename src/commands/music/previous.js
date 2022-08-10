@@ -5,7 +5,7 @@ const PlaybackUtil = require('../../util/PlaybackUtil.js');
 module.exports = {
   data: new Discord.SlashCommandBuilder()
     .setName('prev')
-    .setDescription('Plays previous item in queue')
+    .setDescription('Play previous items in queue')
     .addIntegerOption(option =>
       option.setName('num')
         .setDescription('Number in queue to skip to')
