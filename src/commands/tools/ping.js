@@ -33,6 +33,8 @@ module.exports = {
         },
       ]);
 
-    InteractionUtil.editReply(interaction, embed, InteractionUtil.ReplyType.EMBED, true);
+    await interaction.editReply({
+      embeds: [embed],
+    });
   },
 };

@@ -7,6 +7,7 @@ module.exports = {
     .setDescription('Returns an embed.'),
 
   async execute(interaction, client) {
+    await interaction.deferReply();
     const embed = new Discord.EmbedBuilder()
       .setTitle('This is an EMBED!')
       .setDescription('This is a very cool description!!!')
@@ -37,7 +38,7 @@ module.exports = {
         },
       ]);
 
-    await interaction.reply({
+    await interaction.editReply({
       embeds: [embed],
     });
   },

@@ -8,6 +8,7 @@ module.exports = {
     .setDescription('Stops music and disconnects'),
 
   async execute(interaction, client) {
+    await interaction.deferReply();
     const user = interaction.user ?? null;
     const member = interaction.member ?? null;
 
@@ -18,7 +19,7 @@ module.exports = {
 
     // check if member is in the same voice channel
     if (!member.voice.channelId) {
-      InteractionUtil.reply(interaction, Constants.commands.music.REQUIRE_SAME_VOICE_CHANNEL, InteractionUtil.ReplyType.STRING);
+      await interaction.editReply(Constants.commands.music.REQUIRE_SAME_VOICE_CHANNEL);
       return;
     }
 
@@ -28,17 +29,13 @@ module.exports = {
       distube.stop(interaction);
     } catch (error) {
       if (error.errorCode === 'NO_QUEUE') {
-        InteractionUtil.reply(interaction, Constants.commands.music.QUEUE_EMPTY, InteractionUtil.ReplyType.STRING);
+        await interaction.editReply(Constants.commands.music.QUEUE_EMPTY);
         return;
       } else {
         throw error;
       }
     }
 
-    const embed = new Discord.EmbedBuilder()
-      .setTitle(Constants.commands.music.SONG_STOPPED)
-      .setColor(Constants.misc.embed.COLOR_ACCENT);
-
-    InteractionUtil.reply(interaction, embed, InteractionUtil.ReplyType.EMBED);
+    await interaction.editReply(Constants.commands.music.SONG_STOPPED);
   },
 };

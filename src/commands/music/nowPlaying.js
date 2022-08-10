@@ -8,6 +8,7 @@ module.exports = {
     .setDescription('Current item in queue'),
 
   async execute(interaction, client) {
+    await interaction.deferReply();
     const user = interaction.user ?? null;
     const member = interaction.member ?? null;
 
@@ -17,7 +18,7 @@ module.exports = {
     if (!user || user === client.user) return;
 
     if (!member.voice.channelId) {
-      InteractionUtil.reply(interaction, Constants.commands.music.REQUIRE_VOICE_CHANNEL, true);
+      await interaction.editReply(Constants.commands.music.REQUIRE_VOICE_CHANNEL);
       return;
     }
 
@@ -25,11 +26,13 @@ module.exports = {
     const queue = distube.getQueue(interaction) ?? null;
 
     if (!queue) {
-      InteractionUtil.reply(interaction, Constants.commands.music.QUEUE_EMPTY, InteractionUtil.ReplyType.STRING);
+      await interaction.editReply(Constants.commands.music.QUEUE_EMPTY);
       return;
     }
 
     const embed = Constants.misc.embed.nowPlayingEmbed(queue.songs[0]);
-    InteractionUtil.reply(interaction, embed, InteractionUtil.ReplyType.EMBED);
+    await interaction.editReply({
+      embeds: [embed],
+    });
   },
 };

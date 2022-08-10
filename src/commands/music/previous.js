@@ -8,6 +8,7 @@ module.exports = {
     .setDescription('Plays previous item in queue'),
 
   async execute(interaction, client) {
+    interaction.deferReply();
     const user = interaction.user ?? null;
     const member = interaction.member ?? null;
 
@@ -17,7 +18,7 @@ module.exports = {
     if (!user || user === client.user) return;
 
     if (!member.voice.channelId) {
-      InteractionUtil.reply(interaction, Constants.commands.music.REQUIRE_VOICE_CHANNEL, true);
+      await interaction.editReply(Constants.commands.music.REQUIRE_VOICE_CHANNEL);
       return;
     }
 
@@ -26,7 +27,9 @@ module.exports = {
 
     distube.previous(interaction).then((song) => {
       embed = Constants.misc.embed.nowPlayingEmbed(song);
-      InteractionUtil.reply(interaction, embed, InteractionUtil.ReplyType.EMBED);
+      interaction.editReply({
+        embeds: [embed],
+      });
     }).catch((err) => {
       console.log('Something went wrong in going to previous song...');
       console.err(err);

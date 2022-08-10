@@ -4,7 +4,8 @@ module.exports = {
   },
 
   async execute(interaction, client) {
-    await interaction.reply({
+    await interaction.deferReply();
+    await interaction.editReply({
       content: 'https://youtube.com',
     });
   },

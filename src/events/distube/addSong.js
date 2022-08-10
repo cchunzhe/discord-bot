@@ -27,6 +27,8 @@ module.exports = {
           inline: false,
         },
       ]);
-    InteractionUtil.editReply(interaction, embed, InteractionUtil.ReplyType.EMBED);
+    await interaction.editReply({
+      embeds: [embed],
+    });
   },
 };

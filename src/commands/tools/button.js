@@ -6,12 +6,13 @@ module.exports = {
     .setDescription('Returns a button!'),
 
   async execute(interaction, client) {
+    await interaction.deferReply();
     const button = new Discord.ButtonBuilder()
       .setCustomId('open-yt')
       .setLabel('Click me!')
       .setStyle(Discord.ButtonStyle.Primary);
 
-    await interaction.reply({
+    await interaction.editReply({
       components: [new Discord.ActionRowBuilder().addComponents(button)],
     });
   },
