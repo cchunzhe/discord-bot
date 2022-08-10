@@ -15,7 +15,6 @@ module.exports = {
       .setTitle(title)
       .setColor(Constants.misc.embed.COLOR_ACCENT)
       .setThumbnail(song.thumbnail)
-      .setTimestamp(Date.now())
       .addFields([
         {
           name: 'Title',

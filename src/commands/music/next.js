@@ -8,8 +8,8 @@ module.exports = {
     .setDescription('Plays next item in queue'),
 
   async execute(interaction, client) {
-    const user = interaction.user || null;
-    const member = interaction.member || null;
+    const user = interaction.user ?? null;
+    const member = interaction.member ?? null;
 
     if (!user || !member) return new Error('user or member variable is unavailable!');
 
@@ -29,7 +29,6 @@ module.exports = {
         .setTitle(Constants.commands.music.SONG_NOW_PLAYING)
         .setColor(Constants.misc.embed.COLOR_ACCENT)
         .setThumbnail(song.thumbnail)
-        .setTimestamp(Date.now())
         .addFields([
           {
             name: 'Title',

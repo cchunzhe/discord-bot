@@ -15,8 +15,8 @@ module.exports = {
     // Immediately defer reply to prevent timeouts
     await interaction.deferReply();
 
-    const user = interaction.user || null;
-    const member = interaction.member || null;
+    const user = interaction.user ?? null;
+    const member = interaction.member ?? null;
 
     if (!user || !member) return new Error('user or member variable is unavailable!');
 

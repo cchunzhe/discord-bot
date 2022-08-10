@@ -8,8 +8,8 @@ module.exports = {
     .setDescription('Stops music and disconnects'),
 
   async execute(interaction, client) {
-    const user = interaction.user || null;
-    const member = interaction.member || null;
+    const user = interaction.user ?? null;
+    const member = interaction.member ?? null;
 
     if (!user || !member) return new Error('user or member variable is unavailable!');
 
@@ -37,8 +37,7 @@ module.exports = {
 
     const embed = new Discord.EmbedBuilder()
       .setTitle(Constants.commands.music.SONG_STOPPED)
-      .setColor(Constants.misc.embed.COLOR_ACCENT)
-      .setTimestamp(Date.now());
+      .setColor(Constants.misc.embed.COLOR_ACCENT);
 
     InteractionUtil.reply(interaction, embed, InteractionUtil.ReplyType.EMBED);
   },
