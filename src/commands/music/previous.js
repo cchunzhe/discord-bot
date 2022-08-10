@@ -1,5 +1,4 @@
 const Discord = require('discord.js');
-const InteractionUtil = require('../../util/InteractionUtil.js');
 const Constants = require('../../util/Constants.js');
 
 module.exports = {
@@ -8,7 +7,7 @@ module.exports = {
     .setDescription('Plays previous item in queue'),
 
   async execute(interaction, client) {
-    interaction.deferReply();
+    await interaction.deferReply();
     const user = interaction.user ?? null;
     const member = interaction.member ?? null;
 

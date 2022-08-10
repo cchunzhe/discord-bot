@@ -1,5 +1,4 @@
 const Discord = require('discord.js');
-const InteractionUtil = require('../../util/InteractionUtil.js');
 const Constants = require('../../util/Constants.js');
 
 module.exports = {
