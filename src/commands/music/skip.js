@@ -4,8 +4,8 @@ const PlaybackUtil = require('../../util/PlaybackUtil.js');
 
 module.exports = {
   data: new Discord.SlashCommandBuilder()
-    .setName('prev')
-    .setDescription('Plays previous item in queue')
+    .setName('skip')
+    .setDescription('Skip number of songs')
     .addIntegerOption(option =>
       option.setName('num')
         .setDescription('Number in queue to skip to')
@@ -27,7 +27,7 @@ module.exports = {
     }
 
     const rawArgs = interaction.options.getInteger('num') ?? 1;
-    const args = rawArgs === 0 ? -1 : Math.abs(rawArgs) * -1;
+    const args = rawArgs === 0 ? 1 : Math.abs(rawArgs);
 
     PlaybackUtil.jumpSong(interaction, client, args);
   },
